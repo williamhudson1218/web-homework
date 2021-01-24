@@ -17,6 +17,23 @@ defmodule Homework.Transactions do
       [%Transaction{}, ...]
 
   """
+  def search_transactions(%{start_date: start_date, end_date: end_date}) do
+    query = from t in Transaction,
+    where: t.inserted_at >= ^start_date,
+    where: t.inserted_at <= ^end_date
+
+      Homework.Repo.all(query)
+  end
+
+  @doc """
+  Returns the list of transactions.
+
+  ## Examples
+
+      iex> list_transactions([])
+      [%Transaction{}, ...]
+
+  """
   def list_transactions(_args) do
     Repo.all(Transaction)
   end

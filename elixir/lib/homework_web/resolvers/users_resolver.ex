@@ -9,6 +9,13 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
   end
 
   @doc """
+  Gets a list of users based on search value
+  """
+  def search_users(_root, args, _info) do
+    {:ok, Users.search_users(args)}
+  end
+
+  @doc """
   Creates a user
   """
   def create_user(_root, args, _info) do

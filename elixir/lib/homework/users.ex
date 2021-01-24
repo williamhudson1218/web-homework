@@ -22,6 +22,34 @@ defmodule Homework.Users do
   end
 
   @doc """
+  Returns the list of users filtered by search value.
+
+  ## Examples
+
+      iex> search_users([])
+      [%User{}, ...]
+
+  """
+  def search_users(%{search_value: search_value}) do
+    threshold = 3
+    query = from u in User,
+        where:
+          fragment(
+            "levenshtein(?, ?)",
+            u.first_name,
+            ^search_value
+          ) <= ^threshold,
+          or_where:
+          fragment(
+            "levenshtein(?, ?)",
+            u.last_name,
+            ^search_value
+          ) <= ^threshold
+
+      Homework.Repo.all(query)
+  end
+
+  @doc """
   Gets a single user.
 
   Raises `Ecto.NoResultsError` if the User does not exist.

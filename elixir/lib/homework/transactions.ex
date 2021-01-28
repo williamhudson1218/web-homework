@@ -13,16 +13,28 @@ defmodule Homework.Transactions do
 
   ## Examples
 
-      iex> list_transactions([])
-      [%Transaction{}, ...]
+  iex> list_transactions([])
+  [%Transaction{}, ...]
 
   """
-  def search_transactions(%{start_date: start_date, end_date: end_date}) do
-    query = from t in Transaction,
-    where: t.inserted_at >= ^start_date,
-    where: t.inserted_at <= ^end_date
+  # TODO: why does adding this spec throw an warning on it's references
+  # @spec search_transactions(String.t(), String.t(), integer, integer) :: :map
+  @spec search_transactions(
+          start_date :: %NaiveDateTime{},
+          end_date :: %NaiveDateTime{},
+          limit :: integer,
+          skip :: integer
+        ) :: list(%Transaction{})
+  def search_transactions(start_date, end_date, limit, skip) do
+    query =
+      from(t in Transaction,
+        where: t.inserted_at >= ^start_date,
+        where: t.inserted_at <= ^end_date,
+        limit: ^limit,
+        offset: ^skip
+      )
 
-      Homework.Repo.all(query)
+    Homework.Repo.all(query)
   end
 
   @doc """

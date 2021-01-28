@@ -2,6 +2,7 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   alias Homework.Merchants
   alias Homework.Transactions
   alias Homework.Users
+  alias Homework.Companies
 
   @doc """
   Get a list of transcations
@@ -10,14 +11,13 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
     {:ok, Transactions.list_transactions(args)}
   end
 
-    @doc """
+  @doc """
   Get a list of transcations
   """
   def search_transactions(_root, %{start_date: start_date, end_date: end_date}, _info) do
     start_date = NaiveDateTime.from_iso8601!("#{start_date} 00:00:00", Calendar.ISO)
     end_date = NaiveDateTime.from_iso8601!("#{end_date} 23:59:59", Calendar.ISO)
-    newArgs = %{:start_date => start_date, :end_date => end_date}
-    {:ok, Transactions.search_transactions(newArgs)}
+    {:ok, Transactions.search_transactions(start_date, end_date, 10000, 0)}
   end
 
   @doc """
@@ -32,6 +32,13 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   """
   def merchant(_root, _args, %{source: %{merchant_id: merchant_id}}) do
     {:ok, Merchants.get_merchant!(merchant_id)}
+  end
+
+  @doc """
+  Get the merchant associated with a transaction
+  """
+  def company(_root, _args, %{source: %{company_id: company_id}}) do
+    {:ok, Companies.get_company!(company_id)}
   end
 
   @doc """

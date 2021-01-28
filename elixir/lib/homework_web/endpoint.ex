@@ -1,6 +1,5 @@
 defmodule HomeworkWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :homework
-
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
@@ -42,6 +41,7 @@ defmodule HomeworkWeb.Endpoint do
 
   plug(Plug.RequestId)
   plug(Plug.Telemetry, event_prefix: [:phoenix, :endpoint])
+  plug(Corsica, origins: ["http://localhost:3000"])
 
   plug(Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],

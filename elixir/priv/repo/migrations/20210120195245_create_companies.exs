@@ -6,8 +6,7 @@ defmodule Homework.Repo.Migrations.CreateCompanies do
       add(:id, :uuid, primary_key: true)
       add(:name, :string)
       add(:credit_line, :integer)
-      #TODO: is there any need to for a database column
-      #add(:available_credit, :integer)
+      add(:available_credit, :integer)
 
       timestamps()
     end

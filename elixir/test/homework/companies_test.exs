@@ -1,16 +1,14 @@
 defmodule Homework.CompaniesTest do
   use Homework.DataCase
 
+  alias Ecto.UUID
   alias Homework.Companies
 
   describe "companies" do
     alias Homework.Companies.Company
 
-    @valid_attrs %{name: "some name", credit_line: 10000}
-    @update_attrs %{
-      dob: "some updated name",
-      credit_line: 20000
-    }
+    @valid_attrs %{name: "some name", credit_line: 10000, available_credit: 10000}
+    @update_attrs %{name: "some updated name", credit_line: 20000, available_credit: 20000}
     @invalid_attrs %{name: nil}
 
     def company_fixture(attrs \\ %{}) do
@@ -34,8 +32,9 @@ defmodule Homework.CompaniesTest do
 
     test "create_company/1 with valid data creates a company" do
       assert {:ok, %Company{} = company} = Companies.create_company(@valid_attrs)
-      assert company.name == "My Company Name LLC"
-      assert company.credit_line == 15000
+      assert company.name == "some name"
+      assert company.credit_line == 10000
+      assert company.available_credit == 10000
     end
 
     test "create_company/1 with invalid data returns error changeset" do
@@ -45,14 +44,15 @@ defmodule Homework.CompaniesTest do
     test "update_company/2 with valid data updates the company" do
       company = company_fixture()
       assert {:ok, %Company{} = company} = Companies.update_company(company, @update_attrs)
-      assert company.name == "My cool company"
-      assert company.credit_line == 1000000
+      assert company.name == "some updated name"
+      assert company.credit_line == 20000
+      assert company.available_credit == 20000
     end
 
     test "update_company/2 with invalid data returns error changeset" do
       company = company_fixture()
       assert {:error, %Ecto.Changeset{}} = Companies.update_company(company, @invalid_attrs)
-      assert company == Companies.get_company!(id)!(company.id)
+      assert company == Companies.get_company!(company.id)
     end
 
     test "delete_company/1 deletes the company" do

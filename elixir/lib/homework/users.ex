@@ -32,21 +32,24 @@ defmodule Homework.Users do
   """
   def search_users(%{search_value: search_value}) do
     threshold = 3
-    query = from u in User,
+
+    query =
+      from(u in User,
         where:
           fragment(
             "levenshtein(?, ?)",
             u.first_name,
             ^search_value
           ) <= ^threshold,
-          or_where:
+        or_where:
           fragment(
             "levenshtein(?, ?)",
             u.last_name,
             ^search_value
           ) <= ^threshold
+      )
 
-      Homework.Repo.all(query)
+    Homework.Repo.all(query)
   end
 
   @doc """

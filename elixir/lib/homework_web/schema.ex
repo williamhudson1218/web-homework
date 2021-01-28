@@ -2,6 +2,7 @@ defmodule HomeworkWeb.Schema do
   @moduledoc """
   Defines the graphql schema for this project.
   """
+  use Ecto.Schema
   use Absinthe.Schema
 
   alias HomeworkWeb.Resolvers.CompaniesResolver
@@ -18,8 +19,8 @@ defmodule HomeworkWeb.Schema do
 
     @desc "Search Transactions"
     field(:transactionsearch, list_of(:transaction)) do
-      arg :start_date, non_null(:string), description: "start date"
-      arg :end_date, non_null(:string), description: "end date"
+      arg(:start_date, non_null(:string), description: "start date")
+      arg(:end_date, non_null(:string), description: "end date")
       resolve(&TransactionsResolver.search_transactions/3)
     end
 
@@ -30,7 +31,7 @@ defmodule HomeworkWeb.Schema do
 
     @desc "Get list of users by search value"
     field(:usersearch, list_of(:user)) do
-      arg :search_value, non_null(:string), description: "search value"
+      arg(:search_value, non_null(:string), description: "search value")
       resolve(&UsersResolver.search_users/3)
     end
 

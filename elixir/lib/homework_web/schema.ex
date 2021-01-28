@@ -21,6 +21,8 @@ defmodule HomeworkWeb.Schema do
     field(:transactionsearch, list_of(:transaction)) do
       arg(:start_date, non_null(:string), description: "start date")
       arg(:end_date, non_null(:string), description: "end date")
+      arg(:limit, non_null(:integer), description: "limit")
+      arg(:skip, non_null(:integer), description: "skip")
       resolve(&TransactionsResolver.search_transactions/3)
     end
 

@@ -1,5 +1,7 @@
 defmodule Homework.Amount do
   use Ecto.Type
+
+  ## this module was created to complete objective #6, it was working for the most part but broke most of my tests so I decided to revert the other files but leave this one for reference.
   def type, do: :integer
 
   def cast(amount) when is_integer(amount) do

@@ -14,10 +14,14 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   @doc """
   Get a list of transcations
   """
-  def search_transactions(_root, %{start_date: start_date, end_date: end_date}, _info) do
+  def search_transactions(
+        _root,
+        %{start_date: start_date, end_date: end_date, limit: limit, skip: skip},
+        _info
+      ) do
     start_date = NaiveDateTime.from_iso8601!("#{start_date} 00:00:00", Calendar.ISO)
     end_date = NaiveDateTime.from_iso8601!("#{end_date} 23:59:59", Calendar.ISO)
-    {:ok, Transactions.search_transactions(start_date, end_date, 10000, 0)}
+    {:ok, Transactions.search_transactions(start_date, end_date, limit, skip)}
   end
 
   @doc """

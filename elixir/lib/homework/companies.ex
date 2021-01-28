@@ -7,6 +7,7 @@ defmodule Homework.Companies do
   alias Homework.Repo
 
   alias Homework.Companies.Company
+  alias Homework.Transactions.Transaction
 
   @doc """
   Returns the list of companies.
@@ -100,5 +101,16 @@ defmodule Homework.Companies do
   """
   def change_company(%Company{} = company, attrs \\ %{}) do
     Company.changeset(company, attrs)
+  end
+
+  @spec get_company_transaction_total(String.t()) :: any
+  def get_company_transaction_total(id) do
+    query =
+      from(t in Transaction,
+        where: t.company_id == ^id,
+        select: sum(t.amount)
+      )
+
+    Homework.Repo.one(query)
   end
 end

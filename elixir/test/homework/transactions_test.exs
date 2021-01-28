@@ -177,5 +177,19 @@ defmodule Homework.TransactionsTest do
       transaction = transaction_fixture(valid_attrs)
       assert %Ecto.Changeset{} = Transactions.change_transaction(transaction)
     end
+
+    test "search_transactions/4 returns a list of transactions", %{valid_attrs: valid_attrs} do
+      transaction = transaction_fixture(valid_attrs)
+
+      assert Enum.at(
+               Transactions.search_transactions(
+                 transaction.inserted_at,
+                 transaction.inserted_at,
+                 1,
+                 0
+               ),
+               0
+             ) == transaction
+    end
   end
 end

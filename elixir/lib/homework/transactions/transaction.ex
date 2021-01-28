@@ -4,7 +4,8 @@ defmodule Homework.Transactions.Transaction do
   alias Homework.Merchants.Merchant
   alias Homework.Users.User
   alias Homework.Companies.Company
-  alias Homework.Amount
+  #removed because it was breaking tests
+  #alias Homework.Amount
 
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "transactions" do

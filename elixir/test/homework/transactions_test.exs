@@ -128,6 +128,15 @@ defmodule Homework.TransactionsTest do
       assert transaction.company_id == company1.id
     end
 
+    test "check company available credit/1 verifies that the availble credit has been updated correctly", %{
+      valid_attrs: valid_attrs,
+      company1: company1
+    } do
+      assert {:ok, %Transaction{} = transaction} = Transactions.create_transaction(valid_attrs)
+      company = Companies.get_company!(company1.id)
+      assert company.available_credit == company1.available_credit - transaction.amount
+    end
+
     test "create_transaction/1 with invalid data returns error changeset", %{
       invalid_attrs: invalid_attrs
     } do

@@ -1,7 +1,6 @@
 defmodule Homework.CompaniesTest do
   use Homework.DataCase
 
-  alias Ecto.UUID
   alias Homework.Companies
 
   describe "companies" do

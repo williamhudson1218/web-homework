@@ -17,8 +17,7 @@ defmodule Homework.Transactions do
   [%Transaction{}, ...]
 
   """
-  # TODO: why does adding this spec throw an warning on it's references
-  # @spec search_transactions(String.t(), String.t(), integer, integer) :: :map
+  @spec search_transactions(String.t(), String.t(), integer, integer) :: list(Transaction)
   @spec search_transactions(
           start_date :: %NaiveDateTime{},
           end_date :: %NaiveDateTime{},

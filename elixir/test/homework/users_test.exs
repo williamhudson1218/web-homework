@@ -87,7 +87,6 @@ defmodule Homework.UsersTest do
 
     test "update_user/2 with valid data updates the user",
          %{
-           company: company,
            update_attrs: update_attrs
          } do
       user = user_fixture(update_attrs)

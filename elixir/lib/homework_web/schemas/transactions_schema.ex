@@ -13,7 +13,6 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     field(:debit, :boolean)
     field(:description, :string)
     field(:merchant_id, :id)
-    field(:transaction_id, :id)
     field(:inserted_at, :naive_datetime)
     field(:updated_at, :naive_datetime)
 
